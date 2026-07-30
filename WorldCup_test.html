@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تست تاریخ جام جهانی</title>
+
+<style>
+body{
+    font-family:tahoma;
+    background:#0b6623;
+}
+
+.box{
+    background:white;
+    width:400px;
+    margin:50px auto;
+    padding:20px;
+    border-radius:15px;
+}
+
+.option{
+    background:#eee;
+    padding:10px;
+    margin:10px;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+.option:hover{
+    background:#ddd;
+}
+
+.selected{
+    background:green;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#0b6623;
+    color:white;
+    border:0;
+    border-radius:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>تست تاریخ جام جهانی</h2>
+
+<div id="quiz"></div>
+
+<button onclick="next()">بعدی</button>
+
+<h3 id="result"></h3>
+
+</div>
+
+
+<script>
+
+let questions=[
+["اولین جام جهانی در چه سالی برگزار شد؟",
+["1928","1930","1934","1938"],1],
+
+["اولین قهرمان تاریخ جام جهانی کدام کشور بود؟",
+["برزیل","آلمان","اروگوئه","ایتالیا"],2],
+
+["بیشترین قهرمانی جام جهانی متعلق به کدام کشور است؟",
+["آلمان","برزیل","آرژانتین","ایتالیا"],1],
+
+["جام جهانی 2018 در کدام کشور برگزار شد؟",
+["قطر","روسیه","فرانسه","برزیل"],1],
+
+["قهرمان جام جهانی 2022 کدام تیم بود؟",
+["فرانسه","آرژانتین","برزیل","کرواسی"],1]
+];
+
+
+let num=0;
+let score=0;
+let answer=-1;
+
+
+function show(){
+
+answer=-1;
+
+let q=questions[num];
+
+let text="<h3>"+q[0]+"</h3>";
+
+for(let i=0;i<4;i++){
+
+text+=`
+<div class="option" onclick="select(${i},this)">
+${q[1][i]}
+</div>
+`;
+
+}
+
+document.getElementById("quiz").innerHTML=text;
+
+}
+
+
+function select(i,element){
+
+answer=i;
+
+let all=document.querySelectorAll(".option");
+
+all.forEach(x=>x.classList.remove("selected"));
+
+element.classList.add("selected");
+
+}
+
+
+function next(){
+
+if(answer==-1){
+alert("یک گزینه انتخاب کن");
+return;
+}
+
+if(answer==questions[num][2])
+score++;
+
+num++;
+
+if(num<questions.length)
+show();
+
+else{
+document.getElementById("quiz").innerHTML="";
+document.querySelector("button").style.display="none";
+
+document.getElementById("result").innerHTML=
+"امتیاز شما: "+score+" از "+questions.length;
+}
+
+}
+
+
+show();
+
+</script>
+
+</body>
+</html>
